@@ -1,3 +1,11 @@
+# prevent PyCharm & other Jetbrains IDE settings from being tracked:
+.idea
+.idea/
+
+# prevent VSCode settings:
+.vscode
+.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
