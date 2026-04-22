@@ -1,4 +1,4 @@
-##### This is filtering data taking 2021-2024 filtering the columns relevant to the hypotheses #############
+###### This is filtering data taking 2021-2024 filtering the columns relevant to the hypotheses #############
 
 import pandas as pd
 
