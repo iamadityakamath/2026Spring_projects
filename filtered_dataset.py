@@ -9,6 +9,7 @@ import pandas as pd
 #     2023: 'survey_results_public_2023.csv',
 #     2024: 'survey_results_public_2024.csv',
 # }
+
 # for year, path in files.items():
 #     df = pd.read_csv(path, nrows=1)
 #     print(f"\n=== {year} — {len(df.columns)} columns ===")
