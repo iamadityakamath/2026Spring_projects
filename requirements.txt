@@ -1,0 +1,10 @@
+# Add your project dependencies below, one per line.
+# Example:
+# pandas>=1.5.0
+# numpy>=1.23.0
+pandas
+matplotlib
+seaborn
+statsmodels
+scikit-learn
+requests
