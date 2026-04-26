@@ -8,7 +8,7 @@ A Multi-Dataset Analysis of Salaries, AI Sentiment, and Remote Work
 
 - Aditya Kamath — [@iamadityakamath](https://github.com/iamadityakamath)
 - Kritika Agrawal — [@agrawal-kritika](https://github.com/agrawal-kritika)
-- Shivani Beniwal — [@ShivaniB06](https://github.com/ShivaniB06)
+- Shivani — [@ShivaniB06](https://github.com/ShivaniB06)
 
 ## GITHUB REPOSITORY: https://github.com/iamadityakamath/2026Spring_projects
 
