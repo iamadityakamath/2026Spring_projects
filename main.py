@@ -16,6 +16,7 @@ from Helper.helper import (
 )
 from Preprocessing.h1_preprocessing import run_preprocessing_h1
 from Preprocessing.h2_preprocessing import run_preprocessing_h2
+from Preprocessing.h3_preprocessing import run_preprocessing_h3
 from Analysis.h1_analysis import run_analysis
 
 
@@ -30,6 +31,8 @@ def main():
             if ask_confirmation("\nProceed with preprocessing? (yes/no): "):
                 print("\n" + run_preprocessing_h1())
                 print("\n" + run_preprocessing_h2())
+                print("\n" + run_preprocessing_h3())
+                print("\nPreprocessing completed successfully.")
             else:
                 print("\nSkipping preprocessing.")
                 
