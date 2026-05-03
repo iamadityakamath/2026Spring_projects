@@ -224,7 +224,7 @@ def clean_org_size(df):
 
 # Pipeline
 
-def run_preprocessing(output_path="Data/h1_clean.csv"):
+def run_preprocessing_h1(output_path="Data/h1_clean.csv"):
     """
     Description: Run the full preprocessing pipeline: load all survey years, filter to professional
         developers, clean salary, engineer seniority/dev-type/country-tier/org-size features,
@@ -263,4 +263,4 @@ def run_preprocessing(output_path="Data/h1_clean.csv"):
 
 
 if __name__ == "__main__":
-    run_preprocessing()
+    run_preprocessing_h1()

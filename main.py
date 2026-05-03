@@ -14,7 +14,8 @@ from Helper.helper import (
     run_download_attempt,
     wait_before_retry,
 )
-from Preprocessing.h1_preprocessing import run_preprocessing
+from Preprocessing.h1_preprocessing import run_preprocessing_h1
+from Preprocessing.h2_preprocessing import run_preprocessing_h2
 from Analysis.h1_analysis import run_analysis
 
 
@@ -27,7 +28,8 @@ def main():
             print("\n All survey data (2020-2025) is already downloaded!")
 
             if ask_confirmation("\nProceed with preprocessing? (yes/no): "):
-                print("\n" + run_preprocessing())
+                print("\n" + run_preprocessing_h1())
+                print("\n" + run_preprocessing_h2())
             else:
                 print("\nSkipping preprocessing.")
                 
