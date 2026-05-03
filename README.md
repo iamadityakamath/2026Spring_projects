@@ -12,6 +12,14 @@ A Multi-Dataset Analysis of Salaries, AI Sentiment, and Remote Work
 
 ## GITHUB REPOSITORY: https://github.com/iamadityakamath/2026Spring_projects
 
+
+## How to Run
+
+```bash
+python main.py
+```
+
+
 ## PROJECT TYPE: 
 ### Type III — Original Data Analysis
 
