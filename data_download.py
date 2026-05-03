@@ -5,39 +5,18 @@ Skips years that have already been downloaded and extracted.
 
 import os
 import zipfile
-
 import requests
+from dotenv import load_dotenv
 
-BASE_URL = "https://survey.stackoverflow.co/datasets/stack-overflow-developer-survey-{year}.zip"
-OUTPUT_DIR = "so_surveys"
-YEARS = range(2020, 2026)
+load_dotenv()
 
-
-# Helpers
-
-def make_dirs(path):
-    """Create directory (and parents) if it does not already exist."""
-    if not os.path.exists(path):
-        os.makedirs(path)
-
-
-def already_downloaded(year):
-    """Return True if the extracted folder for *year* exists and is non-empty."""
-    folder = os.path.join(OUTPUT_DIR, str(year))
-    return os.path.isdir(folder) and bool(os.listdir(folder))
-
-
-def get_zip_path(year):
-    """Return the local zip file path for *year*."""
-    return os.path.join(OUTPUT_DIR, "survey_{}.zip".format(year))
-
-
-def get_extract_dir(year):
-    """Return the local extraction directory for *year*."""
-    return os.path.join(OUTPUT_DIR, str(year))
+BASE_URL = os.getenv("BASE_URL", "https://survey.stackoverflow.co/datasets/stack-overflow-developer-survey-{year}.zip")
+OUTPUT_DIR = os.getenv("OUTPUT_DIR", "Data/so_surveys")
+YEARS = range(int(os.getenv("YEAR_START", 2020)), int(os.getenv("YEAR_END", 2026)))
 
 def download(year, session):
     """Download the survey zip for year. Returns zip path or None on error."""
+    from Helper.helper import get_zip_path
     url = BASE_URL.format(year=year)
     zip_path = get_zip_path(year)
 
@@ -69,6 +48,7 @@ def download(year, session):
 
 def extract(zip_path, year):
     """Extract *zip_path* into the year subfolder and remove the zip."""
+    from Helper.helper import get_extract_dir, make_dirs
     extract_dir = get_extract_dir(year)
     make_dirs(extract_dir)
 
@@ -88,12 +68,13 @@ def print_summary(results):
     print("=" * 60)
 
     if results["success"]:
-        print("  + Downloaded : {}".format(results["success"]))
+        print("Downloaded : {}".format(results["success"]))
     if results["skipped"]:
-        print("  - Skipped    : {}".format(results["skipped"]))
+        print("Skipped    : {}".format(results["skipped"]))
     if results["failed"]:
-        print("  x Failed     : {}".format(results["failed"]))
+        print("Failed     : {}".format(results["failed"]))
 
+    from Helper.helper import get_extract_dir
     print("\nOutput folder: {}".format(os.path.abspath(OUTPUT_DIR)))
     print("\nFolder structure:")
     for year in sorted(results["success"] + results["skipped"]):
@@ -107,6 +88,7 @@ def print_summary(results):
 
 
 def main():
+    from Helper.helper import make_dirs, already_downloaded, get_extract_dir
     make_dirs(OUTPUT_DIR)
     print("Saving surveys to: {}/".format(os.path.abspath(OUTPUT_DIR)))
     print("=" * 60)
@@ -129,9 +111,7 @@ def main():
                 results["success"].append(year)
             else:
                 results["failed"].append(year)
-
     print_summary(results)
-
 
 if __name__ == "__main__":
     main()

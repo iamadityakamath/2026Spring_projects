@@ -31,7 +31,7 @@ Hypotheses
 
 **H2**: Developers who use AI tools report higher job satisfaction, but this gap shrinks once you account for how experienced they are. We aim to analyze whether experienced people use AI search for jobs. If yes, then how beneficial is it for them? As they might have more experience themselves than AI.
 
-**H3**: The salary advantage that remote roles had in 2020–2022 (COVID Panedamic work from home wave) has faded by 2023–2024 (when offices opened again), and analysing that pool of all five years together might produce misleading conclusions, as the data might be old. We would analyse the difference between people's salaries for work-from-home job roles from 2020-2022 and the same for remote/in-person job roles from 2023-2025.
+**H3**: The salary advantage that remote roles had in 2020-2022 (COVID Panedamic work from home wave) has faded by 2023-2024 (when offices opened again), and analysing that pool of all five years together might produce misleading conclusions, as the data might be old. We would analyse the difference between people's salaries for work-from-home job roles from 2020-2022 and the same for remote/in-person job roles from 2023-2025.
 
 ## DATASETS: 
 ### We are using three datasets:
@@ -42,7 +42,7 @@ Hypotheses
    - 🔗 https://survey.stackoverflow.co/2024/
 
 2. **Jobs in Data (ai-jobs.net)**  
-   - ~9,000 salary records (2020–2024)  
+   - ~9,000 salary records (2020-2024)  
    - Includes role, company size, and work setting  
    - 🔗 https://www.kaggle.com/datasets/hummaamqaasim/jobs-in-data
 

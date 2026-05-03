@@ -2,3 +2,5 @@
 Data/
 .DS_Store
 .venv/
+# ignore pycache
+__pycache__/

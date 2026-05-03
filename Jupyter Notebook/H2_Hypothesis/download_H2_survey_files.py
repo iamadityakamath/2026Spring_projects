@@ -57,7 +57,7 @@ def download_and_extract(year, url, target_path):
                 f.write(response.read())
         print("done")
     except Exception as e:
-        print(f"\n✗ Failed to download {year} survey: {e}")
+        print(f"\nFailed to download {year} survey: {e}")
         print(f"  Please download it manually from:")
         print(f"  https://survey.stackoverflow.co/{year}/")
         print(f"  and save the CSV as: {target_path}")
@@ -88,10 +88,10 @@ def download_and_extract(year, url, target_path):
                 shutil.rmtree("data/tmp", ignore_errors=True)
                 print("done")
             else:
-                print(f"\n✗ Could not find survey CSV inside the zip for {year}")
+                print(f"\nCould not find survey CSV inside the zip for {year}")
 
     except zipfile.BadZipFile:
-        print(f"\n✗ Downloaded file for {year} is not a valid zip")
+        print(f"\nDownloaded file for {year} is not a valid zip")
         print(f"  Please download manually from: https://survey.stackoverflow.co/{year}/")
     finally:
         if os.path.exists(zip_path):
@@ -110,7 +110,7 @@ def verify_downloads():
             size_mb = os.path.getsize(path) / (1024 * 1024)
             print(f"✓ {year}: {path} ({size_mb:.1f} MB)")
         else:
-            print(f"✗ {year}: {path} — NOT FOUND")
+            print(f"{year}: {path} — NOT FOUND")
             all_good = False
 
     print("=" * 50)

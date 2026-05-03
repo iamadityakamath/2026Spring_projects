@@ -206,7 +206,7 @@ removed = (~salary_mask).sum()
 df = df[salary_mask].copy()
 print(f"\nSalary outliers removed: {removed:,} rows")
 print(f"Salary range: ${df['ConvertedCompYearly'].min():,.0f} "
-      f"– ${df['ConvertedCompYearly'].max():,.0f}")
+      f"- ${df['ConvertedCompYearly'].max():,.0f}")
 
 # ═════════════════════════════════════════════════════════════════
 # 7. DEVTYPE — take first role for multi-select responses
