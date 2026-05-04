@@ -1,4 +1,4 @@
-BASE = "/Users/aditya/Documents/PR/PR FInal Project/2026Spring_projects/Data"
+from Helper.config import BASE
 
 DATA_FILE = f"{BASE}/data_science_salaries.csv"
 

@@ -1,4 +1,4 @@
-BASE = "/Users/aditya/Documents/PR/PR FInal Project/2026Spring_projects/Data"
+from Helper.config import BASE
 
 YEAR_FILES = {
     yr: f"{BASE}/so_surveys/{yr}/survey_results_public.csv"

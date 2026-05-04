@@ -7,6 +7,7 @@ charts.
 
 import sys
 
+from Helper.config import BASE
 from Helper.helper import (
     check_data_status,
     print_data_status,
@@ -21,6 +22,7 @@ from Analysis.h1_analysis import run_analysis
 
 
 def main():
+    print(f"Data directory: {BASE}")
     while True:
         downloaded, missing = check_data_status()
         print_data_status(downloaded, missing)
