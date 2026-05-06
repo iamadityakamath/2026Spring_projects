@@ -1,4 +1,5 @@
 from Helper.config import BASE
+from typing import List, Dict
 
 YEAR_FILES = {
     yr: f"{BASE}/so_surveys/{yr}/survey_results_public.csv"
@@ -67,6 +68,26 @@ ORG_SIZE_MAP = {
 }
 
 PLOTS_DIR = "Data/Analysis Plots/H1_Analysis"
+
+DEFAULT_PLOTS: List[str] = [
+    "h1_salary_by_title.png",
+    "h1_salary_by_country.png",
+    "h1_salary_by_seniority.png",
+    "h1_salary_heatmap.png",
+    "h1_salary_trends.png",
+]
+
+DEFAULT_HYPOTHESES: Dict[str, str] = {
+    "h1_salary_by_title.png": '''H1-A: Title rankings look meaningful on the surface with Management ($120K) to Research ($50K) but the spread is largely driven by geography and seniority, not title itself. 
+                                 The tight $65-70K cluster across very different mid-tier roles already hints that title alone explains little once other factors are controlled.''',
+    "h1_salary_by_country.png": '''H1-B: The US dominates at $140K; nearly 2.5x Sweden or Japan. Even within high-income countries, the range is massive ($56K-$140K). This is the key evidence for H1: 
+                                    A "Data/ML Engineer" in the US earns more than a "Management" role in Japan. Country alone affects title as a salary predictor, making any title-only ranking misleading without geographic controls.''',
+    "h1_salary_by_seniority.png": '''H1-C: A steep progression from $35K (0-2 yrs) to $105K (20+ yrs), a 3x increase purely on experience. 
+                                    This reinforces H1: seniority alone produces a larger salary spread than most title differences seen in Chart 1. A senior Back-End developer likely out-earns a junior Data/ML engineer, making title comparisons without seniority controls essentially meaningless.''',
+    "h1_salary_heatmap.png": '''H1-D: The strongest evidence for H1. A Front-End developer in the US earns $121K more than a Data/ML engineer in Canada ($80K) or Germany ($75K). 
+                                    India's entire row ($14-20K) sits below any single cell in the US row. Within each country, title differences are modest (US range: $105-$160K); across countries, the gap is enormous. Geography dominates title — every time.''',
+    "h1_salary_trends.png": '''H1-E: All titles rose together through 2020-2023, then dipped in 2024 (likely reflecting tech layoffs and hiring freezes), before recovering in 2025. Data/ML breaks away sharply in 2025 ($105K), reflecting AI-driven demand. Crucially, the lines move in sync — macro conditions and year affect all titles similarly, reinforcing H1: external forces and timing matter more than title label. The 2024 dip hits every role equally regardless of title.''',
+}
 
 COUNTRY_SHORT = {
     'United States of America': 'USA',

@@ -19,6 +19,7 @@ from Preprocessing.h1_preprocessing import run_preprocessing_h1
 from Preprocessing.h2_preprocessing import run_preprocessing_h2
 from Preprocessing.h3_preprocessing import run_preprocessing_h3
 from Analysis.h1_analysis import run_analysis
+from download_report import generate_report
 
 
 def main():
@@ -43,6 +44,11 @@ def main():
                 print("\n" + run_analysis())
             else:
                 print("\nSkipping analysis.")
+
+            if ask_confirmation("\nProceed with report generation? (yes/no): "):
+                generate_report(filename="report_h1.pdf", title="H1 Analysis Report")
+            else:
+                print("\nSkipping report generation.")
 
             sys.exit(0)
 

@@ -199,6 +199,19 @@ def run_download_attempt(years, label):
     return failed, missing
 
 
+REPORTS_DIR = os.path.join("Data", "Reports")
+
+
+def ensure_reports_dir():
+    """
+    Description: Check if Data/Reports exists; create it if not.
+    Returns:
+        str: Absolute path to the Reports directory.
+    """
+    make_dirs(REPORTS_DIR)
+    return os.path.abspath(REPORTS_DIR)
+
+
 def load_data(filepath):
     """
     Description: Load the cleaned H1 survey CSV and print the row count and survey years.
