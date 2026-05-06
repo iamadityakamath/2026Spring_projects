@@ -9,11 +9,13 @@ import os
 from fpdf import FPDF
 
 import Helper.H1_constants as _h1
+import Helper.H2_constants as _h2
 import Helper.H3_constants as _h3
 from Helper.helper import ensure_reports_dir
 
 _HYPOTHESIS_CONSTANTS = {
     "h1": _h1,
+    "h2": _h2,
     "h3": _h3,
 }
 
