@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 
 import matplotlib
-matplotlib.use('Agg')   # non-interactive backend; remove this line to display charts interactively
+matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 import numpy as np
