@@ -4,6 +4,7 @@ Handles data status checks, user prompts, downloads, and retry logic.
 """
 
 import os
+import shutil
 import time
 import pandas as pd
 import requests
@@ -225,3 +226,48 @@ def load_data(filepath):
         len(df), sorted(int(y) for y in df['Year'].unique())
     ))
     return df
+
+
+def delete_data(data_dir="Data", preserve="data_science_salaries.csv"):
+    """
+    Description: Delete all files and folders inside data_dir except the preserved file.
+    Args:
+        data_dir (str): Path to the data directory. Defaults to 'Data'.
+        preserve (str): Filename to keep. Defaults to 'data_science_salaries.csv'.
+    Returns:
+        None
+    """
+    if not os.path.isdir(data_dir):
+        print(f"Directory '{data_dir}' not found.")
+        return
+
+    deleted_files = []
+    deleted_dirs = []
+
+    for entry in os.listdir(data_dir):
+        if entry == preserve:
+            continue
+
+        path = os.path.join(data_dir, entry)
+
+        if os.path.isfile(path):
+            os.remove(path)
+            deleted_files.append(path)
+        elif os.path.isdir(path):
+            shutil.rmtree(path)
+            deleted_dirs.append(path)
+
+    print("=" * 60)
+    print("Cleanup Complete")
+    print("=" * 60)
+    if deleted_files:
+        print("Deleted files:")
+        for f in deleted_files:
+            print(f"  {f}")
+    if deleted_dirs:
+        print("Deleted folders:")
+        for d in deleted_dirs:
+            print(f"  {d}/")
+    if not deleted_files and not deleted_dirs:
+        print("Nothing to delete.")
+    print(f"\nPreserved: {os.path.join(data_dir, preserve)}")
