@@ -28,6 +28,71 @@ pip install -r requirements.txt
 python main.py
 ```
 
+## PROJECT STRUCTURE
+
+```
+2026Spring_projects/
+├── Analysis/                    # Analysis scripts for each hypothesis
+│   ├── h1_analysis.py
+│   ├── h2_analysis.py
+│   └── h3_analysis.py
+├── Data/                        # Data directory
+│   ├── data_science_salaries.csv
+│   └── so_surveys/             # Stack Overflow survey data by year
+│       ├── 2020/
+│       │   ├── README_2020.txt
+│       │   ├── survey_results_public.csv
+│       │   └── survey_results_schema.csv
+│       ├── 2021/
+│       │   ├── README_2021.txt
+│       │   ├── survey_results_public.csv
+│       │   └── survey_results_schema.csv
+│       ├── 2022/
+│       │   ├── README_2022.txt
+│       │   ├── survey_results_public.csv
+│       │   └── survey_results_schema.csv
+│       ├── 2023/
+│       │   ├── README_2023.txt
+│       │   ├── survey_results_public.csv
+│       │   └── survey_results_schema.csv
+│       ├── 2024/
+│       │   ├── survey_results_public.csv
+│       │   └── survey_results_schema.csv
+│       └── 2025/
+│           ├── survey_results_public.csv
+│           └── survey_results_schema.csv
+├── Helper/                      # Helper modules and constants
+│   ├── __init__.py
+│   ├── config.py
+│   ├── H1_constants.py
+│   ├── H2_constants.py
+│   ├── H3_constants.py
+│   └── helper.py
+├── Jupyter Notebook/            # Jupyter notebooks for analysis
+│   ├── H1_Hypothesis/
+│   │   ├── H1_Analysis.ipynb
+│   │   └── H1_Preprocessing.ipynb
+│   ├── H2_Hypothesis/
+│   │   ├── H2_ai_satisfaction.ipynb
+│   │   ├── H2_data_cleanup.py
+│   │   └── download_H2_survey_files.py
+│   └── H3_Hypothesis/
+│       ├── H3.ipynb
+│       └── README.md
+├── Preprocessing/               # Preprocessing scripts for each hypothesis
+│   ├── h1_preprocessing.py
+│   ├── h2_preprocessing.py
+│   └── h3_preprocessing.py
+├── tools/                       # Utility tools
+├── main.py                      # Main entry point
+├── data_download.py             # Script to download datasets
+├── delete_data.py               # Script to delete datasets
+├── download_report.py           # Script to generate reports
+├── requirements.txt             # Python dependencies
+├── sample.txt                   # Sample data file
+└── README.md                    # Project documentation
+```
+
 ## PROJECT TYPE: 
 ### Type III — Original Data Analysis
 
