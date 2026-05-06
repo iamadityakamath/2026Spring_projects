@@ -229,7 +229,7 @@ def plot_salary_trends(df, n_titles=6, output_dir=None):
     plt.close()
 
 
-def run_analysis(filepath='Data/h1_clean.csv'):
+def run_h1_analysis(filepath='Data/h1_clean.csv'):
     """
     Description: Run the full H1 analysis pipeline: load data, create the output directory
         using make_dirs, and produce and save all five charts. Skips if plots already exist.
@@ -253,4 +253,4 @@ def run_analysis(filepath='Data/h1_clean.csv'):
     return "All plots saved to '{}'.".format(os.path.abspath(PLOTS_DIR))
 
 if __name__ == '__main__':
-    run_analysis()
+    run_h1_analysis()

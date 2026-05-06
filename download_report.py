@@ -8,25 +8,39 @@ Requires: pip install fpdf2
 import os
 from fpdf import FPDF
 
-from Helper.H1_constants import PLOTS_DIR, DEFAULT_PLOTS, DEFAULT_HYPOTHESES
+import Helper.H1_constants as _h1
+import Helper.H3_constants as _h3
 from Helper.helper import ensure_reports_dir
+
+_HYPOTHESIS_CONSTANTS = {
+    "h1": _h1,
+    "h3": _h3,
+}
 
 
 def clean(text):
     """Replace common unicode characters that latin-1 can't encode."""
     return (
         text
-        .replace("\u2014", "-")   # em dash —
-        .replace("\u2013", "-")   # en dash –
-        .replace("\u2018", "'")   # left single quote
-        .replace("\u2019", "'")   # right single quote
-        .replace("\u201c", '"')   # left double quote
-        .replace("\u201d", '"')   # right double quote
-        .replace("\u2026", "...")  # ellipsis
+        .replace("—", "-")   # em dash —
+        .replace("–", "-")   # en dash –
+        .replace("‘", "'")   # left single quote
+        .replace("’", "'")   # right single quote
+        .replace("“", '"')   # left double quote
+        .replace("”", '"')   # right double quote
+        .replace("…", "...")  # ellipsis
     )
 
 
-def generate_report(filename="report.pdf", title="H1 Analysis Report"):
+def generate_report(filename="report.pdf", title="Analysis Report", hypothesis="h1"):
+    constants = _HYPOTHESIS_CONSTANTS.get(hypothesis.lower())
+    if constants is None:
+        raise ValueError(f"Unknown hypothesis '{hypothesis}'. Choose from: {list(_HYPOTHESIS_CONSTANTS)}")
+
+    plots_dir = constants.PLOTS_DIR
+    default_plots = constants.DEFAULT_PLOTS
+    default_hypotheses = constants.DEFAULT_HYPOTHESES
+
     reports_dir = ensure_reports_dir()
     output_path = os.path.join(reports_dir, filename)
 
@@ -39,13 +53,13 @@ def generate_report(filename="report.pdf", title="H1 Analysis Report"):
     pdf.cell(0, 140, clean(title), align="C")
 
     # --- One image + caption per page ---
-    for filename in DEFAULT_PLOTS:
-        path = os.path.join(PLOTS_DIR, filename)
+    for plot_file in default_plots:
+        path = os.path.join(plots_dir, plot_file)
         if not os.path.exists(path):
-            print(f"Skipping missing file: {filename}")
+            print(f"Skipping missing file: {plot_file}")
             continue
 
-        caption = clean(DEFAULT_HYPOTHESES.get(filename, ""))
+        caption = clean(default_hypotheses.get(plot_file, ""))
 
         pdf.add_page()
         pdf.image(path, x=10, y=10, w=190)
@@ -59,4 +73,4 @@ def generate_report(filename="report.pdf", title="H1 Analysis Report"):
 
 
 if __name__ == "__main__":
-    generate_report(filename="report.pdf", title="Analysis Report")
+    generate_report(filename="report_h1.pdf", title="H1 Analysis Report", hypothesis="h1")
