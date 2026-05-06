@@ -15,11 +15,7 @@ A Multi-Dataset Analysis of Salaries, AI Sentiment, and Remote Work
 ## How to Run
 
 ```bash
-# Step 1: Create a virtual environment
-python -m venv .so_venv
 
-# Step 2: Activate the virtual environment
-source .so_venv/bin/activate
 
 # Step 3: Install dependencies
 pip install -r requirements.txt

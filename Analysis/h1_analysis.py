@@ -240,7 +240,7 @@ def run_h1_analysis(filepath='Data/h1_clean.csv'):
     """
     result = check_file_exists(PLOTS_DIR)
     if result:
-        return "files already exist in '{}'. Skipping analysis.".format(os.path.abspath(PLOTS_DIR))
+        return "files already exist in '{}'. Skipping analysis for h1.".format(os.path.abspath(PLOTS_DIR))
 
     make_dirs(PLOTS_DIR)
     df = load_data(filepath)

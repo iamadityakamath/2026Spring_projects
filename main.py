@@ -20,6 +20,7 @@ from Preprocessing.h1_preprocessing import run_preprocessing_h1
 from Preprocessing.h2_preprocessing import run_preprocessing_h2
 from Preprocessing.h3_preprocessing import run_preprocessing_h3
 from Analysis.h1_analysis import run_h1_analysis
+from Analysis.h2_analysis import run_h2_analysis
 from Analysis.h3_analysis import run_h3_analysis
 from download_report import generate_report
 
@@ -47,12 +48,14 @@ def main():
 
             if ask_confirmation("\nProceed with analysis? (yes/no): "):
                 print("\n" + run_h1_analysis())
+                print("\n" + run_h2_analysis())
                 print("\n" + run_h3_analysis())
             else:
                 print("\nSkipping analysis.")
 
             if ask_confirmation("\nProceed with report generation? (yes/no): "):
                 generate_report(filename="report_h1.pdf", title="H1 Analysis Report", hypothesis="h1")
+                generate_report(filename="report_h2.pdf", title="H2 Analysis Report", hypothesis="h2")
                 generate_report(filename="report_h3.pdf", title="H3 Analysis Report", hypothesis="h3")
             else:
                 print("\nSkipping report generation.")
