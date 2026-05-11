@@ -8,7 +8,7 @@ import shutil
 import time
 import pandas as pd
 import requests
-from data_download import OUTPUT_DIR, YEARS, download, extract
+from data_download import OUTPUT_DIR, YEARS, download
 
 
 def check_file_exists(path):
@@ -32,43 +32,31 @@ def make_dirs(path):
     Returns:
         None
     """
-    if not os.path.exists(path):
-        os.makedirs(path)
+    os.makedirs(path, exist_ok=True)
 
 
-def get_zip_path(year):
+def get_csv_path(year):
     """
-    Description: Return the local file path where the zip for a given survey year is saved.
+    Description: Return the local file path where the CSV for a given survey year is saved.
     Args:
         year (int): The survey year.
     Returns:
-        str: Full path to the zip file.
+        str: Full path to the CSV file.
     """
-    return os.path.join(OUTPUT_DIR, "survey_{}.zip".format(year))
-
-
-def get_extract_dir(year):
-    """
-    Description: Return the local directory path where a survey year is extracted.
-    Args:
-        year (int): The survey year.
-    Returns:
-        str: Full path to the extraction directory.
-    """
-    return os.path.join(OUTPUT_DIR, str(year))
+    return os.path.join(OUTPUT_DIR, str(year), "survey_results_public.csv")
 
 
 def already_downloaded(year):
     """
     Description: Check whether the survey data for a given year has already been downloaded
-        and extracted by verifying the folder exists and is non-empty.
+        by verifying the CSV file exists.
     Args:
         year (int): The survey year to check.
     Returns:
-        bool: True if the year folder exists and contains files, False otherwise.
+        bool: True if the CSV file exists, False otherwise.
     """
-    folder = get_extract_dir(year)
-    return os.path.isdir(folder) and bool(os.listdir(folder))
+    csv_path = get_csv_path(year)
+    return os.path.isfile(csv_path)
 
 
 def check_data_status():
@@ -129,7 +117,7 @@ def ask_confirmation(prompt):
 
 def download_missing_years(missing_years):
     """
-    Description: Download and extract survey zip files for all missing years.
+    Description: Download survey CSV files for all missing years.
     Args:
         missing_years (list): Year integers to download.
     Returns:
@@ -143,9 +131,8 @@ def download_missing_years(missing_years):
     with requests.Session() as session:
         session.headers.update({"User-Agent": "Mozilla/5.0"})
         for year in missing_years:
-            zip_path = download(year, session)
-            if zip_path:
-                extract(zip_path, year)
+            csv_path = download(year, session)
+            if csv_path:
                 downloaded.append(year)
             else:
                 failed.append(year)

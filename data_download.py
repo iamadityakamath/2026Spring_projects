@@ -1,24 +1,25 @@
 """
-Download and extract Stack Overflow Developer Surveys (2020-2025).
-Skips years that have already been downloaded and extracted.
+Download Stack Overflow Developer Surveys (2020-2025) as CSV files.
+Skips years that have already been downloaded.
 """
 
 import os
-import zipfile
 import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_URL = os.getenv("BASE_URL", "https://survey.stackoverflow.co/datasets/stack-overflow-developer-survey-{year}.zip")
+# BASE_URL = os.getenv("BASE_URL", "https://survey.stackoverflow.co/datasets/stack-overflow-developer-survey-{year}.zip")
+BASE_URL = os.getenv("BASE_URL", "https://github.com/StackExchange/Survey/raw/refs/heads/main/packages/archive/{year}/results.csv")
 OUTPUT_DIR = os.getenv("OUTPUT_DIR", "Data/so_surveys")
 YEARS = range(int(os.getenv("YEAR_START", 2020)), int(os.getenv("YEAR_END", 2026)))
 
 def download(year, session):
-    """Download the survey zip for year. Returns zip path or None on error."""
-    from Helper.helper import get_zip_path
+    """Download the survey CSV for year. Returns file path or None on error."""
     url = BASE_URL.format(year=year)
-    zip_path = get_zip_path(year)
+    year_dir = os.path.join(OUTPUT_DIR, str(year))
+    os.makedirs(year_dir, exist_ok=True)
+    csv_path = os.path.join(year_dir, "survey_results_public.csv")
 
     print("\n[{}] Downloading {}".format(year, url))
     try:
@@ -34,7 +35,7 @@ def download(year, session):
     total = int(response.headers.get("content-length", 0))
     received = 0
 
-    with open(zip_path, "wb") as fh:
+    with open(csv_path, "wb") as fh:
         for chunk in response.iter_content(chunk_size=8192):
             fh.write(chunk)
             received += len(chunk)
@@ -43,22 +44,7 @@ def download(year, session):
                     received / total * 100, received, total), end="")
 
     print("\r  Done  ({:,} bytes){}".format(received, " " * 20))
-    return zip_path
-
-
-def extract(zip_path, year):
-    """Extract *zip_path* into the year subfolder and remove the zip."""
-    from Helper.helper import get_extract_dir, make_dirs
-    extract_dir = get_extract_dir(year)
-    make_dirs(extract_dir)
-
-    print("  Extracting to {}/".format(extract_dir))
-    with zipfile.ZipFile(zip_path, "r") as zf:
-        zf.extractall(extract_dir)
-        files = zf.namelist()
-
-    os.remove(zip_path)
-    print("  Extracted {} file(s): {}".format(len(files), ", ".join(files)))
+    return csv_path
 
 
 def print_summary(results):
@@ -74,12 +60,11 @@ def print_summary(results):
     if results["failed"]:
         print("Failed     : {}".format(results["failed"]))
 
-    from Helper.helper import get_extract_dir
     print("\nOutput folder: {}".format(os.path.abspath(OUTPUT_DIR)))
-    print("\nFolder structure:")
+    print("\nDownloaded CSV files:")
     for year in sorted(results["success"] + results["skipped"]):
-        files = os.listdir(get_extract_dir(year))
-        print("  {}/  ->  {}".format(year, ", ".join(files)))
+        csv_file = os.path.join(str(year), "survey_results_public.csv")
+        print("  {}".format(csv_file))
 
     if results["failed"]:
         print("\nRetry in 30 seconds -- the following URLs had issues:")
@@ -88,8 +73,7 @@ def print_summary(results):
 
 
 def main():
-    from Helper.helper import make_dirs, already_downloaded, get_extract_dir
-    make_dirs(OUTPUT_DIR)
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     print("Saving surveys to: {}/".format(os.path.abspath(OUTPUT_DIR)))
     print("=" * 60)
 
@@ -99,15 +83,14 @@ def main():
         session.headers.update({"User-Agent": "Mozilla/5.0"})
 
         for year in YEARS:
-            if already_downloaded(year):
-                files = os.listdir(get_extract_dir(year))
-                print("\n[{}] Already exists -- skipping ({})".format(year, ", ".join(files)))
+            csv_file = os.path.join(OUTPUT_DIR, str(year), "survey_results_public.csv")
+            if os.path.exists(csv_file):
+                print("\n[{}] Already exists -- skipping".format(year))
                 results["skipped"].append(year)
                 continue
 
-            zip_path = download(year, session)
-            if zip_path:
-                extract(zip_path, year)
+            csv_path = download(year, session)
+            if csv_path:
                 results["success"].append(year)
             else:
                 results["failed"].append(year)
