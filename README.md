@@ -19,7 +19,11 @@ A Multi-Dataset Analysis of Salaries, AI Sentiment, and Remote Work
 python -m venv .so_venv
 
 # Step 2: Activate the virtual environment
+# macOS / Linux
 source .so_venv/bin/activate
+
+# Windows PowerShell
+.so_venv\Scripts\Activate.ps1
 
 # Step 3: Install dependencies
 pip install -r requirements.txt
