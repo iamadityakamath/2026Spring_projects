@@ -44,27 +44,17 @@ python main.py
 │   ├── data_science_salaries.csv
 │   └── so_surveys/             # Stack Overflow survey data by year
 │       ├── 2020/
-│       │   ├── README_2020.txt
-│       │   ├── survey_results_public.csv
-│       │   └── survey_results_schema.csv
+│       │   └── survey_results_public.csv
 │       ├── 2021/
-│       │   ├── README_2021.txt
-│       │   ├── survey_results_public.csv
-│       │   └── survey_results_schema.csv
+│       │   └── survey_results_public.csv
 │       ├── 2022/
-│       │   ├── README_2022.txt
-│       │   ├── survey_results_public.csv
-│       │   └── survey_results_schema.csv
+│       │   └── survey_results_public.csv
 │       ├── 2023/
-│       │   ├── README_2023.txt
-│       │   ├── survey_results_public.csv
-│       │   └── survey_results_schema.csv
+│       │   └── survey_results_public.csv
 │       ├── 2024/
-│       │   ├── survey_results_public.csv
-│       │   └── survey_results_schema.csv
+│       │   └── survey_results_public.csv
 │       └── 2025/
-│           ├── survey_results_public.csv
-│           └── survey_results_schema.csv
+│           └── survey_results_public.csv
 ├── Helper/                      # Helper modules and constants
 │   ├── __init__.py
 │   ├── config.py
@@ -151,3 +141,7 @@ Most public analyses:
 - Ignore time trends in remote work
 
 We address these gaps using **statistical rigor instead of surface-level insights**.
+
+## Use of AI
+
+AI tools were used to help draft this README, create some helper functions, and refactor parts of the code to make them more reusable.
