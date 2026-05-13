@@ -38,6 +38,11 @@ def make_dirs(path):
         path (str): Directory path to create.
     Returns:
         None
+    >>> import tempfile, os
+    >>> tmp = tempfile.mkdtemp() + '/new_folder'
+    >>> make_dirs(tmp)
+    >>> os.path.isdir(tmp)
+    True
     """
     os.makedirs(path, exist_ok=True)
 
