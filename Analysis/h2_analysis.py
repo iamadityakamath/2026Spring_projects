@@ -109,6 +109,9 @@ def cohens_d(group1, group2):
     """
     Calculate Cohen's d effect size between two groups.
 
+    A positive value means group1 has a higher mean than group2.
+    Magnitude: < 0.2 small, < 0.5 medium, >= 0.5 large.
+
     Args:
         group1 (pd.Series): First group values.
         group2 (pd.Series): Second group values.
@@ -116,8 +119,15 @@ def cohens_d(group1, group2):
     Returns:
         float: Cohen's d value.
 
-    >>> round(cohens_d(pd.Series([1, 2, 3]), pd.Series([4, 5, 6])), 2)
+    >>> import pandas as pd
+    >>> float(round(cohens_d(pd.Series([1, 2, 3]), pd.Series([4, 5, 6])), 2))
     -3.0
+    >>> float(round(cohens_d(pd.Series([4, 5, 6]), pd.Series([1, 2, 3])), 2))
+    3.0
+    >>> bool(cohens_d(pd.Series([1, 2, 3]), pd.Series([4, 5, 6])) < 0)
+    True
+    >>> bool(cohens_d(pd.Series([1, 2, 3]), pd.Series([1, 2, 3])) == 0.0)
+    True
     """
     n1, n2 = len(group1), len(group2)
     pooled_std = np.sqrt(

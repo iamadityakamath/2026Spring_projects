@@ -49,6 +49,19 @@ def load_all_years():
 # ── Clean / Engineer ──────────────────────────────────────────────
 
 def _clean_years_col(series):
+    """
+    Normalise a raw years-of-experience column to a numeric float Series.
+
+    >>> import pandas as pd, numpy as np, math
+    >>> _clean_years_col(pd.Series(['Less than 1 year'])).iloc[0]
+    0.5
+    >>> _clean_years_col(pd.Series(['More than 50 years'])).iloc[0]
+    51.0
+    >>> _clean_years_col(pd.Series(['10'])).iloc[0]
+    10.0
+    >>> math.isnan(_clean_years_col(pd.Series(['NA'])).iloc[0])
+    True
+    """
     return (
         series.astype(str)
         .str.strip()

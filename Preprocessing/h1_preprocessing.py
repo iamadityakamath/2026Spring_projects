@@ -120,11 +120,25 @@ def _clean_years_col(series):
         series (pd.Series): Raw years column as read from the survey CSV.
     Returns:
         pd.Series: Float Series with strings replaced and unparseable values as NaN.
+
+    >>> import pandas as pd, numpy as np
+    >>> float(_clean_years_col(pd.Series(['Less than 1 year'])).iloc[0])
+    0.5
+    >>> float(_clean_years_col(pd.Series(['More than 50 years'])).iloc[0])
+    51.0
+    >>> float(_clean_years_col(pd.Series(['5'])).iloc[0])
+    5.0
+    >>> import math
+    >>> math.isnan(_clean_years_col(pd.Series(['NA'])).iloc[0])
+    True
+    >>> math.isnan(_clean_years_col(pd.Series(['nan'])).iloc[0])
+    True
     """
     return (
         series.astype(str)
         .str.strip()
-        .replace({"Less than 1 year": "0.5", "More than 50 years": "51", "nan": np.nan, "NA": np.nan})
+        .replace({"Less than 1 year": "0.5", "More than 50 years": "51",
+                  "nan": np.nan, "NA": np.nan})
         .pipe(pd.to_numeric, errors="coerce")
     )
 
@@ -181,6 +195,18 @@ def _assign_tier(country):
         country (str or float): Country name string, or NaN/None if missing.
     Returns:
         str: One of "Tier1_High", "Tier2_UpperMid", "Tier3_Mid", "Tier4_Lower", or "Unknown".
+
+    >>> _assign_tier('United States of America')
+    'Tier1_High'
+    >>> _assign_tier('India')
+    'Tier4_Lower'
+    >>> import numpy as np
+    >>> _assign_tier(np.nan)
+    'Unknown'
+    >>> _assign_tier(None)
+    'Unknown'
+    >>> isinstance(_assign_tier('Brazil'), str)
+    True
     """
     if pd.isna(country):
         return "Unknown"

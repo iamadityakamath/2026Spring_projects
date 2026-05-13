@@ -18,6 +18,13 @@ def check_file_exists(path):
         path (str): File or directory path to check.
     Returns:
         str or None: A message string if the path exists, None otherwise.
+
+    >>> import tempfile, os
+    >>> tmp = tempfile.mkdtemp()
+    >>> check_file_exists(tmp) is not None
+    True
+    >>> check_file_exists('/nonexistent/path/xyz') is None
+    True
     """
     if os.path.exists(path):
         return "File already exists at '{}'.".format(path)
@@ -42,6 +49,15 @@ def get_csv_path(year):
         year (int): The survey year.
     Returns:
         str: Full path to the CSV file.
+
+    >>> import os
+    >>> path = get_csv_path(2024)
+    >>> path.endswith('survey_results_public.csv')
+    True
+    >>> '2024' in path
+    True
+    >>> get_csv_path(2023) != get_csv_path(2024)
+    True
     """
     return os.path.join(OUTPUT_DIR, str(year), "survey_results_public.csv")
 
@@ -54,10 +70,12 @@ def already_downloaded(year):
         year (int): The survey year to check.
     Returns:
         bool: True if the CSV file exists, False otherwise.
+
+    >>> already_downloaded(9999)
+    False
     """
     csv_path = get_csv_path(year)
     return os.path.isfile(csv_path)
-
 
 def check_data_status():
     """
